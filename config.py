@@ -26,8 +26,7 @@ class mysql(object):
     passwd = mysql_url.password or None
 
 class sqlite3(object):
-    # path = './database.db'
-    path = os.getcwd()+'/database.db'
+    path = os.path.join(os.getcwd(), 'database.db')
 
 # 数据库类型，修改 sqlite3 为 mysql 使用 mysql
 db_type = os.getenv('DB_TYPE', 'sqlite3')
@@ -50,11 +49,15 @@ proxies = []
 # 域名
 domain = 'qiandao.today'
 
-# mailgun 邮件发送, 域名和 apikey
+# 邮件发送配置 默认明文, 可选SSL TLS
+mail_type = ""
 mail_smtp = ""
+mail_port = 25
 mail_user = ""
 mail_password = ""
+# 邮件发送域名
 mail_domain = "mail.qiandao.today"
+# mailgun 邮件发送apikey
 mailgun_key = ""
 
 # google analytics

@@ -184,7 +184,14 @@ def _send_mail(to, subject, text=None, subtype='html'):
     try:
         logger.info('send mail to {}'.format(to))
         s = smtplib.SMTP()
-        s.connect(config.mail_smtp)
+        if not config.mail_type:
+            s.connect(config.mail_smtp, port=config.mail_port or 25)
+        elif config.mail_type == 'TLS':
+            s.connect(config.mail_smtp, port=config.mail_port)
+            s.starttls()
+        elif config.mail_type == 'SSL':
+            s = smtplib.SMTP_SSL()
+            s.connect(config.mail_smtp, port=config.mail_port)
         s.login(config.mail_user, config.mail_password)
         s.sendmail(config.mail_user, to, msg.as_string())
         s.close()
