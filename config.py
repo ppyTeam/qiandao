@@ -26,7 +26,8 @@ class mysql(object):
     passwd = mysql_url.password or None
 
 class sqlite3(object):
-    path = './database.db'
+    # path = './database.db'
+    path = os.getcwd()+'/database.db'
 
 # 数据库类型，修改 sqlite3 为 mysql 使用 mysql
 db_type = os.getenv('DB_TYPE', 'sqlite3')
